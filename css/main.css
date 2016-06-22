@@ -1,5 +1,5 @@
 /*
- api-mashup 2016-06-07 
+ api-mashup 2016-06-21 
 */
 * {
   font-family: 'Roboto Slab', serif;
@@ -45,6 +45,23 @@ body {
   padding-left: 5px;
   width: 100%;
   color: #78398c;
+}
+.body {
+  box-sizing: border-box;
+}
+.body .searchResult {
+  width: 30%;
+  float: left;
+  height: 100vh;
+}
+.body .maps {
+  width: 70%;
+  float: left;
+  height: 100vh;
+}
+.body #map {
+  height: 100%;
+  width: 100%;
 }
 @media screen and (max-width: 800px) {
   .container {
