@@ -18,6 +18,11 @@
 
 body{
 	margin: 0;
+	height: 82vh;
+}
+ul{
+	padding: 0;
+	margin: 0;
 }
 .container{
 	background: @brand_color;
@@ -26,8 +31,6 @@ body{
 	flex-wrap: wrap;
 	justify-content: space-around;
 	list-style: none;
-	padding: 0;
-	margin: 0;
 }
 .item{
     background: rgb(136, 73, 156) none repeat scroll 0 0;
@@ -36,8 +39,17 @@ body{
     line-height: 80px;
     padding: 10px;
     text-align: center;
+    width: 48%;
     .queryBox {
 	    .textStyling;
+	}
+	li{
+		list-style-type: none;
+		display: inline;
+		span{
+			position: relative;
+			top: 2px;
+		}
 	}
 }
 .brand{
@@ -60,7 +72,7 @@ body{
 	.searchResult{
 		width: 30%;
 		float: left;
-		height: 100vh;
+		height: 100%;
 		overflow: auto;
 		.searchItem{
 			background: #FFEDFF;
@@ -80,17 +92,26 @@ body{
 	.maps{
 		width: 70%;
 		float: left;
-		height: 100vh;
+		height: 82vh;
 	}
 	#map {
 	    height: 100%;
 	    width: 100%;
 	}
 }
-
+@media screen and (max-width: 1000px){
+	.item{
+		width: 100%;
+		line-height: 24px;
+	}
+}
 @media screen and (max-width: 800px){
 	.container{
 		justify-content: space-around;
+	}
+	.item{
+		width: 100%;
+		line-height: 24px;
 	}
 }
 
@@ -101,7 +122,8 @@ body{
 	.item{
 		border-bottom: 1px solid #FFC259;
 		padding: 0;
-		line-height: 60px;
+		line-height: 44px;
+		width: 100%;
 	}
 	.item.brand{
 		font-size: 20px;
