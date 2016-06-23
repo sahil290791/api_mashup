@@ -5,12 +5,6 @@
 // -->
 
 var Header = React.createClass({
-	// getInitialState: function(){
-	// 	return {
-	// 		location: this.props.location,
-	// 		query: this.props.query
-	// 	};
-	// },	
 	handleChange: function(location, query){
 		this.props.onUserInput(
 	      location,query
@@ -23,8 +17,9 @@ var Header = React.createClass({
 					<a href="#">API Mashup</a>
 				</li>
 				<li className="item">
-					<span>Looking for</span>
+					<span>Looking for </span>
 					<QueryBox onUserSelection={this.handleChange} query={this.props.query} location={this.props.location} />
+					 <span> in </span>
 				</li>
 				<li className="item searchBar">
 					<SearchBar onUserInputs={this.handleChange} location={this.props.location} query={this.props.query} />
@@ -44,7 +39,7 @@ var QueryBox = React.createClass({
 	},
 	render: function(){
 		return (
-				<input type="text" value={this.props.query} className="queryBox" onChange={this.handleTextChange} />
+				<input type="text" value={this.props.query} className="queryBox" onChange={this.handleTextChange} placeholder="Pizza" />
 			);
 	}
 });
@@ -85,7 +80,6 @@ var Body = React.createClass({
 
 var SearchList = React.createClass({
 	render: function(){
-		// console.log(JSON.stringify(this.props.mapData.hasOwnProperty('response')));
 		if (this.props.mapData.hasOwnProperty("response") && this.props.mapData["response"]["venues"].length > 0 ){
 			var data = this.props.mapData["response"]["venues"].map(function(venue){
 				return (
@@ -112,10 +106,30 @@ var ListItem = React.createClass({
 	render: function(){
 		return(
 			<div className="searchItem">
-				<a href="#" data-lng="{this.props.location['lng']}" data-lat="{this.props.location['lat']}">{this.props.placeName}</a>
+				<a onClick={this.handleClick}  href="#" data-title={this.props.placeName} data-lng={this.props.location['lng']} data-lat={this.props.location['lat']}>{this.props.placeName}</a>
 				<p className="small">{this.props.location["formattedAddress"].join(", ")}: </p>
 			</div>
 		);
+	},
+	handleClick: function(e){
+		this.setState({
+			lat: e.target.getAttribute("data-lat"),
+			lng: e.target.getAttribute("data-lng")	
+		});
+		var latLng = {lat: parseFloat(e.target.getAttribute("data-lat")), lng: parseFloat(e.target.getAttribute("data-lng"))};
+		function initMap(){
+			var map = new google.maps.Map(document.getElementById('map'), {
+		    center: latLng,
+		    zoom: 20
+		  });
+		  var marker = new google.maps.Marker({
+		    position: latLng,
+		    map: map,
+		    title: e.target.getAttribute("data-title")
+		  });
+
+		};
+		initMap();
 	}
 });
 
@@ -133,7 +147,7 @@ var Maps = React.createClass({
 var Container = React.createClass({
 	getInitialState: function(){
 		return {
-			location: '',
+			location: 'Chennai',
 			lat: '',
 			lng: '',
 			mapData: {},
