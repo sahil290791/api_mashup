@@ -5,14 +5,15 @@
 // -->
 
 var Header = React.createClass({
-	getInitialState: function(){
-		return {
-			location: this.props.location
-		};
-	},	
-	handleChange: function(location){
+	// getInitialState: function(){
+	// 	return {
+	// 		location: this.props.location,
+	// 		query: this.props.query
+	// 	};
+	// },	
+	handleChange: function(location, query){
 		this.props.onUserInput(
-	      location
+	      location,query
 	    );
 	},
 	render: function(){
@@ -21,18 +22,38 @@ var Header = React.createClass({
 				<li className="item brand">
 					<a href="#">API Mashup</a>
 				</li>
+				<li className="item">
+					<span>Looking for</span>
+					<QueryBox onUserSelection={this.handleChange} query={this.props.query} location={this.props.location} />
+				</li>
 				<li className="item searchBar">
-					<SearchBar onUserInputs={this.handleChange} location={this.state.location} />
+					<SearchBar onUserInputs={this.handleChange} location={this.props.location} query={this.props.query} />
 				</li>
 			</ul>
 		);
 	}
 });
 
+var QueryBox = React.createClass({
+	handleTextChange: function(e){
+		console.log('location is '+this.props.location);
+		this.props.onUserSelection(
+			this.props.location,
+			e.target.value
+			);
+	},
+	render: function(){
+		return (
+				<input type="text" value={this.props.query} className="queryBox" onChange={this.handleTextChange} />
+			);
+	}
+});
+
 var SearchBar = React.createClass({
 	handleTextChange: function(){
 		this.props.onUserInputs(
-	      this.refs.searchInput.value
+	      this.refs.searchInput.value,
+	      this.props.query
 	    );
 	},
 	render: function(){
@@ -64,16 +85,26 @@ var Body = React.createClass({
 
 var SearchList = React.createClass({
 	render: function(){
-		var data = this.props.mapData.map(function(loc){
+		// console.log(JSON.stringify(this.props.mapData.hasOwnProperty('response')));
+		if (this.props.mapData.hasOwnProperty("response") && this.props.mapData["response"]["venues"].length > 0 ){
+			var data = this.props.mapData["response"]["venues"].map(function(venue){
+				return (
+					<ListItem placeName = {venue["name"]} location={venue["location"]} />
+				);
+			});
 			return (
-				<ListItem long_name = {loc["address_components"][0]["long_name"]} lat = {loc["geometry"]["location"]["lat"]} />
+				<div className="searchResult">
+					{data}
+				</div>
 			);
-		});
-		return (
-			<div className="searchResult">
-				{data}
-			</div>
-		);
+		}
+		else{
+			return (
+				<div className="searchResult">
+					No Data
+				</div>
+			);
+		}
 	}
 });
 
@@ -81,10 +112,8 @@ var ListItem = React.createClass({
 	render: function(){
 		return(
 			<div className="searchItem">
-				<h4>{this.props.long_name}</h4>
-				Location: 
-				<p>Latitude: {this.props.lat}</p>
-				<p>Longitute: {this.props.lng}</p>
+				<a href="#" data-lng="{this.props.location['lng']}" data-lat="{this.props.location['lat']}">{this.props.placeName}</a>
+				<p className="small">{this.props.location["formattedAddress"].join(", ")}: </p>
 			</div>
 		);
 	}
@@ -104,33 +133,54 @@ var Maps = React.createClass({
 var Container = React.createClass({
 	getInitialState: function(){
 		return {
-			location: 'Chennai',
-			lat: 13.0826802,
-			lng: 80.27071840000001,
-			mapData: {}
+			location: '',
+			lat: '',
+			lng: '',
+			mapData: {},
+			query: ""
 		};
 	},
-	handleUserInput: function(location){
+	handleUserInput: function(location, query){
 		this.setState({
 			location: location,
+			query: query
 		});
+		console.log(query);
+		console.log(this.state.query);
 		this.getCoordinates(location);
 		this.updateMap();
+		this.foursquare();
 	},
 	getCoordinates: function(location){
 		var coordinate="";
 		$.ajax({
 			url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+location+'&key=AIzaSyBoPJb_zmSTasju-ve2CGU3nQzZwCgYNik',
-			method: 'post',
+			method: 'get',
 			success: function(data){
 				coordinate=data;
 				this.setState({
 					lat: coordinate["results"][0]["geometry"]["location"]["lat"], 
 					lng: coordinate["results"][0]["geometry"]["location"]["lng"],
-					mapData: data["results"]
 				});		
 			}.bind(this),
 			error:  function(data){
+
+			}
+		});
+	},
+	foursquare: function(){
+		$.ajax({
+			url: 'https://api.foursquare.com/v2/venues/search?ll='+this.state.lat+','+this.state.lng+'&query='+this.state.query+'&client_secret=HRDKFPHCHB3VXRKAKZEI0UJBDTKTGPJKJ1VKG3VR11MSI2OI&client_id=G32Z1SB20LPG1UJRLBQV1PKXKTAQV0WIJS50A2F3BD4CKVHN&v=20160623',
+			method: 'get',
+			dataType: 'json',
+			success: function(data){
+				console.log(JSON.stringify(data));
+				this.setState({
+					mapData: data
+				});
+				console.log('foursquare '+JSON.stringify(data));
+			}.bind(this),
+			error: function(data){
 
 			}
 		});
@@ -150,8 +200,8 @@ var Container = React.createClass({
 	render: function(){
 		return (
 			<div>
-				<Header onUserInput={this.handleUserInput} />
-				<Body location={this.state.location} lat={this.state.lat} lng = {this.state.lng} mapData={this.props.mapData} />
+				<Header onUserInput={this.handleUserInput} location = {this.state.location} query={this.state.query} />
+				<Body location={this.state.location} lat={this.state.lat} lng = {this.state.lng} mapData={this.state.mapData} />
 			</div>
 		);
 	}
