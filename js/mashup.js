@@ -17,13 +17,17 @@ var Header = React.createClass({
 					<a href="#">API Mashup</a>
 				</li>
 				<li className="item">
-					<span>Looking for </span>
-					<QueryBox onUserSelection={this.handleChange} query={this.props.query} location={this.props.location} />
-					 <span> in </span>
-				</li>
-				<li className="item searchBar">
-					<SearchBar onUserInputs={this.handleChange} location={this.props.location} query={this.props.query} />
-				</li>
+					<ul>
+						<li className="">
+							<span>Looking for </span>
+							<QueryBox onUserSelection={this.handleChange} query={this.props.query} location={this.props.location} />
+						</li>
+						<li className="searchBar">
+							<span> in </span>
+							<SearchBar onUserInputs={this.handleChange} location={this.props.location} query={this.props.query} />
+						</li>
+					</ul>
+				</li>	
 			</ul>
 		);
 	}
@@ -31,7 +35,6 @@ var Header = React.createClass({
 
 var QueryBox = React.createClass({
 	handleTextChange: function(e){
-		console.log('location is '+this.props.location);
 		this.props.onUserSelection(
 			this.props.location,
 			e.target.value
@@ -45,9 +48,9 @@ var QueryBox = React.createClass({
 });
 
 var SearchBar = React.createClass({
-	handleTextChange: function(){
+	handleTextChange: function(e){
 		this.props.onUserInputs(
-	      this.refs.searchInput.value,
+	      e.target.value,
 	      this.props.query
 	    );
 	},
@@ -95,7 +98,9 @@ var SearchList = React.createClass({
 		else{
 			return (
 				<div className="searchResult">
-					No Data
+					<div className="searchItem">
+						No near by places found
+					</div>
 				</div>
 			);
 		}
@@ -148,19 +153,22 @@ var Container = React.createClass({
 	getInitialState: function(){
 		return {
 			location: 'Chennai',
-			lat: '',
-			lng: '',
+			lat: '80.27',
+			lng: '13.084',
 			mapData: {},
-			query: ""
+			query: "Pizza"
 		};
+	},
+	componentDidMount: function(){
+		this.getCoordinates(this.state.location);
+		this.updateMap();
+		this.foursquare();
 	},
 	handleUserInput: function(location, query){
 		this.setState({
 			location: location,
 			query: query
 		});
-		console.log(query);
-		console.log(this.state.query);
 		this.getCoordinates(location);
 		this.updateMap();
 		this.foursquare();
@@ -168,7 +176,7 @@ var Container = React.createClass({
 	getCoordinates: function(location){
 		var coordinate="";
 		$.ajax({
-			url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+location+'&key=AIzaSyBoPJb_zmSTasju-ve2CGU3nQzZwCgYNik',
+			url: 'https://maps.googleapis.com/maps/api/geocode/json?address='+this.state.location+'&key=AIzaSyBoPJb_zmSTasju-ve2CGU3nQzZwCgYNik',
 			method: 'get',
 			success: function(data){
 				coordinate=data;
@@ -188,11 +196,9 @@ var Container = React.createClass({
 			method: 'get',
 			dataType: 'json',
 			success: function(data){
-				console.log(JSON.stringify(data));
 				this.setState({
 					mapData: data
 				});
-				console.log('foursquare '+JSON.stringify(data));
 			}.bind(this),
 			error: function(data){
 
