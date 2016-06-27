@@ -27,7 +27,7 @@ var Header = React.createClass({
 							<SearchBar onUserInputs={this.handleChange} location={this.props.location} query={this.props.query} />
 						</li>
 					</ul>
-				</li>	
+				</li>
 			</ul>
 		);
 	}
@@ -119,7 +119,7 @@ var ListItem = React.createClass({
 	handleClick: function(e){
 		this.setState({
 			lat: e.target.getAttribute("data-lat"),
-			lng: e.target.getAttribute("data-lng")	
+			lng: e.target.getAttribute("data-lng")
 		});
 		var latLng = {lat: parseFloat(e.target.getAttribute("data-lat")), lng: parseFloat(e.target.getAttribute("data-lng"))};
 		function initMap(){
@@ -181,9 +181,9 @@ var Container = React.createClass({
 			success: function(data){
 				coordinate=data;
 				this.setState({
-					lat: coordinate["results"][0]["geometry"]["location"]["lat"], 
+					lat: coordinate["results"][0]["geometry"]["location"]["lat"],
 					lng: coordinate["results"][0]["geometry"]["location"]["lng"],
-				});		
+				});
 			}.bind(this),
 			error:  function(data){
 
