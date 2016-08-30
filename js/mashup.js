@@ -14,7 +14,7 @@ var Header = React.createClass({
 		return (
 			<ul className="container">
 				<li className="item brand">
-					<a href="/">Find what you are looking for!</a>
+					<a href="/api_mashup/">Find what you are looking for!</a>
 				</li>
 				<li className="item">
 					<ul>
