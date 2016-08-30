@@ -1,0 +1,40 @@
+{
+  "name": "api-mashup",
+  "version": "0.2.7",
+  "description": "A new way to spell characters for better readability",
+  "keywords": [
+    "api-learning",
+    "api-mashupy"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sahil290791/api_mashup"
+  },
+  "bugs": {
+    "url": "https://github.com/sahil290791/api_mashup/issues"
+  },
+  "author": {
+    "name": "Sahil Prajapati",
+    "email": "sahilprjpt206@gmail.com",
+    "url": "https://github.com/sahil290791"
+  },
+  "homepage": "http://sahil290791.github.io/api_mashup/",
+  "contributors": [
+    {
+      "name": "Sahil Prajapati",
+      "email": "sahilprjpt206@gmail.com",
+      "url": "https://github.com/sahil290791"
+    }
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-cli": "~0.1.13",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-cssmin": "^1.0.1",
+    "grunt-contrib-jshint": "^0.11.0",
+    "grunt-contrib-less": "^1.3.0",
+    "grunt-contrib-uglify": "^0.8.0",
+    "grunt-contrib-watch": "^0.6.1"
+  }
+}

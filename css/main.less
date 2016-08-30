@@ -1,0 +1,141 @@
+*{
+	font-family: 'Roboto Slab', serif;
+}
+// Colors
+@brand_color: #88499C;
+@branc_text_color: #FFC259;
+
+// Mixins
+		.textStyling{
+			background: rgb(255, 255, 255) none repeat scroll 0 0;
+		    border-color: transparent;
+		    border-radius: 3px;
+		    line-height: 2;
+		    padding-left: 5px;
+		    // width: 100%;
+		    color: rgb(120, 57, 140);
+	    }
+
+body{
+	margin: 0;
+	height: 82vh;
+}
+ul{
+	padding: 0;
+	margin: 0;
+}
+.container{
+	background: @brand_color;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	list-style: none;
+}
+.item{
+    background: rgb(136, 73, 156) none repeat scroll 0 0;
+    color: rgb(255, 255, 255);
+    display: block;
+    line-height: 80px;
+    padding: 10px;
+    text-align: center;
+    width: 48%;
+    .queryBox {
+	    .textStyling;
+	}
+	li{
+		list-style-type: none;
+		display: inline;
+		span{
+			position: relative;
+			top: 2px;
+		}
+	}
+}
+.brand{
+		align-self: flex-start;
+		font-size: 26px;
+		> a{
+			color: @branc_text_color;
+			text-decoration: none;
+			display: block;
+		}
+}
+.searchBar{
+	align-self: center;
+	> input {
+	    .textStyling;
+	}
+}
+.body{ 
+	box-sizing: border-box;
+	.searchResult{
+		width: 30%;
+		float: left;
+		height: 82vh;
+		overflow: auto;
+		.searchItem{
+			background: #FFC259;
+			margin-bottom: 5px;
+			padding: 4px 8px;
+			a{
+				font-size: 18px;
+				display: block;
+				color: #88499C;
+			}
+			p.small{
+				color: rgb(128, 128, 128);
+			    font-size: 13px;
+			    margin-top: 0;
+			}
+		}
+	}
+	.maps{
+		width: 70%;
+		float: left;
+		height: 82vh;
+	}
+	#map {
+	    height: 100%;
+	    width: 100%;
+	}
+}
+@media screen and (max-width: 1000px){
+	.item{
+		width: 100%;
+		line-height: 24px;
+	}
+}
+@media screen and (max-width: 800px){
+	.container{
+		justify-content: space-around;
+	}
+	.item{
+		width: 100%;
+		line-height: 24px;
+	}
+}
+
+@media screen and (max-width: 500px){
+	.container{
+		flex-flow: column nowrap;
+	}
+	.item{
+		border-bottom: 1px solid #FFC259;
+		padding: 0;
+		line-height: 44px;
+		width: 100%;
+	}
+	.item.brand{
+		font-size: 20px;
+	}
+	.item.brand, .searchBar{
+		align-self: auto;
+	}
+	.searchBar > input{
+		width: 80%;
+	}
+	.header{
+		text-align: auto;
+	}
+}
