@@ -106,6 +106,7 @@ ul {
   height: 100%;
   width: 100%;
 }
+<<<<<<< HEAD
 
 /* Footer */
 .footer {
@@ -127,6 +128,7 @@ ul {
   width: 30px;
 }
 /* Media Queries */
+
 @media screen and (max-width: 1000px) {
   .item {
     width: 100%;
