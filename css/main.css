@@ -107,23 +107,26 @@ ul {
   width: 100%;
 }
 
-// Footer
+/* Footer */
 .footer {
-    background: rgba(0, 0, 0, 0.84) none repeat scroll 0 0;
-    bottom: 0;
-    color: rgb(255, 255, 255);
-    left: 0;
-    padding: 10px 5px;
-    position: absolute;
-    right: 0;
-    text-align: center;
-    width: 100%;
+  background-color: rgba(0, 0, 0, 0.84);
+  bottom: 0;
+  color: rgb(255, 255, 255);
+  left: 0;
+  padding: 10px 0;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  width: 100%;
 }
+
 .footer > a{
   color: rgb(51, 122, 183);
+  display: inline-block;
   text-decoration: none;
+  width: 30px;
 }
-// Media Queries
+/* Media Queries */
 @media screen and (max-width: 1000px) {
   .item {
     width: 100%;
