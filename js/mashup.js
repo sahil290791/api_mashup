@@ -224,7 +224,7 @@ var Container = React.createClass({
 				<Body location={this.state.location} lat={this.state.lat} lng = {this.state.lng} mapData={this.state.mapData} />
 				<div className="footer">
 				    Created by: Sahil Prajapati | 
-				    <a href="https://sahil290791.github.io/api_mashup/"><i className="fa fa-fw fa-github"></i></a>
+				    <a href="https://github.com/sahil290791/api_mashup"><i className="fa fa-fw fa-github"></i></a>
 				    <a href="https://in.linkedin.com/in/sahil290791"><i className="fa fa-fw fa-linkedin"></i></a>
 				    <a href="https://twitter.com/@sahilprjpt206"><i className="fa fa-fw fa-twitter"></i></a>
 				</div>
