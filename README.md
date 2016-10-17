@@ -1,4 +1,4 @@
-# api_mashup
+# Find what you are looking for
 Using Google Geo API and FourSquare API for buidling this project.
 
 Users can search for anything in any location.
