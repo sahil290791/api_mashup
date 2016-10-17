@@ -1,10 +1,6 @@
 //<!--
 //Google location API: "https://maps.googleapis.com/maps/api/geocode/json?address=chennai&key=AIzaSyBoPJb_zmSTasju-ve2CGU3nQzZwCgYNik"
 //-->
-"use strict";
-var React = require('react');
-var ReactDOM = require('react-dom');
-var $ = require('jquery');
 
 var Container = React.createClass({
 	getInitialState: function(){
