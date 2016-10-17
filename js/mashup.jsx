@@ -3,11 +3,11 @@
 
 //-->
 "use strict";
-var React = require('react');
-var ReactDOM = require('react-dom');
-var $ = require('jquery');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import $ from 'jquery';
 
-var Container = React.createClass({
+const Container = React.createClass({
 	getInitialState: function(){
 		return {
 			location: 'Chennai',
@@ -79,24 +79,36 @@ var Container = React.createClass({
 			<div>
 				<Header onUserInput={this.handleUserInput} location = {this.state.location} query={this.state.query} />
 				<Body location={this.state.location} lat={this.state.lat} lng = {this.state.lng} mapData={this.state.mapData} />
+				<div className="footer">
+				    Created by: Sahil Prajapati | 
+				    <a href="https://github.com/sahil290791/api_mashup"><i className="fa fa-fw fa-github"></i></a>
+				    <a href="https://in.linkedin.com/in/sahil290791"><i className="fa fa-fw fa-linkedin"></i></a>
+				    <a href="https://twitter.com/@sahilprjpt206"><i className="fa fa-fw fa-twitter"></i></a>
+				</div>
 			</div>
 		);
 	}
 });
 
 
-var Header = React.createClass({
+const Header = React.createClass({
 	getInitialState: function() {
 		return {
 			location: this.props.location,
 			query: this.props.query
 		};
 	},
-	handleChange: function(location, query){
+	handleLocationChange: function(location){
 		this.props.onUserInput(
-	      location,query
+	      location,this.state.query
 	    );
-	    this.setState({location: location, query: query});
+	    this.setState({location: location});
+	},
+	handleQueryChange: function(query){
+		this.props.onUserInput(
+	      this.state.location, query
+	    );
+	    this.setState({query: query});
 	},
 	render: function(){
 		return (
@@ -108,11 +120,11 @@ var Header = React.createClass({
 					<ul>
 						<li className="">
 							<span>Looking for </span>
-							<QueryBox onUserSelection={this.handleChange} query={this.state.query} location={this.state.location} />
+							<QueryBox onUserSelection={this.handleQueryChange}/>
 						</li>
 						<li className="searchBar">
 							<span> in </span>
-							<SearchBar onUserInputs={this.handleChange} location={this.state.location} query={this.state.query} />
+							<SearchBar onUserInputs={this.handleLocationChange} />
 						</li>
 					</ul>
 				</li>
@@ -121,27 +133,26 @@ var Header = React.createClass({
 	}
 });
 
-var QueryBox = React.createClass({
+const QueryBox = React.createClass({
 	getInitialState: function() {
 		return {
-			query: this.props.query
+			query: "Pizza"
 		};
 	},
 	handleTextChange: function(e){
 		this.props.onUserSelection(
-				this.props.location,
 				e.target.value
 			);
 		this.setState({ query: e.target.value});
 	},
 	render: function(){
 		return (
-				<input type="text" ref="query" value={this.state.query} className="queryBox" onKeyPress={this.handleTextChange} placeholder="Pizza" />
+				<input type="text" ref="query" value={this.state.query} className="queryBox" onChange={this.handleTextChange} placeholder="Search for" />
 			);
 	}
 });
 
-var SearchBar = React.createClass({
+const SearchBar = React.createClass({
 	getInitialState: function() {
 		return {
 			location: "Chennai"
@@ -149,27 +160,18 @@ var SearchBar = React.createClass({
 	},
 	handleTextChange: function(e){
 		this.props.onUserInputs(
-	      e.target.value,
-	      this.props.query
+	      e.target.value
 	    );
 	    this.setState({ location: e.target.value});
 	},
 	render: function(){
 		return (
-			<input type="text" name="search[places]" ref="searchInput" value={this.state.location} onKeyPress={this.handleTextChange} placeholder="Enter location"/>
+			<input type="text" name="search[places]" ref="searchInput" value={this.state.location} onChange={this.handleTextChange} placeholder="Enter location"/>
 		);
 	}
 })
 
-var Body = React.createClass({
-	getInitialState: function(){
-		return {
-			location: this.props.location,
-			lat: this.props.lat,
-			lng: this.props.lng,
-			mapData: this.props.mapData
-		};
-	},
+const Body = React.createClass({
 	render: function(){
 		return (
 			<div className="body">
@@ -181,12 +183,14 @@ var Body = React.createClass({
 });
 
 
-var SearchList = React.createClass({
+const SearchList = React.createClass({
 	render: function(){
+		var list = this;
 		if (this.props.mapData.hasOwnProperty("response") && this.props.mapData["response"]["venues"].length > 0 ){
+
 			var data = this.props.mapData["response"]["venues"].map(function(venue){
 				return (
-					<ListItem placeName = {venue["name"]} location={venue["location"]} />
+					<ListItem placeName = {venue["name"]} location={venue["location"]}/>		
 				);
 			});
 			return (
@@ -207,10 +211,10 @@ var SearchList = React.createClass({
 	}
 });
 
-var ListItem = React.createClass({
+const ListItem = React.createClass({
 	render: function(){
 		return(
-			<div className="searchItem">
+			<div className="searchItem" >
 				<a onClick={this.handleClick}  href="#" data-title={this.props.placeName} data-lng={this.props.location['lng']} data-lat={this.props.location['lat']}>{this.props.placeName}</a>
 				<p className="small">{this.props.location["formattedAddress"].join(", ")}: </p>
 			</div>
@@ -238,7 +242,7 @@ var ListItem = React.createClass({
 	}
 });
 
-var Maps = React.createClass({
+const Maps = React.createClass({
 	render: function(){
 		return (
 			<div className="maps">
@@ -250,7 +254,5 @@ var Maps = React.createClass({
 });
 
 
-ReactDOM.render(
-	<Container />,
-	document.getElementById('react-container')
-);
+export default Container;
+
