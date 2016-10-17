@@ -8,33 +8,36 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/sahil290791/api_mashup"
+    "url": "git+https://github.com/sahil290791/api_mashup.git"
   },
   "bugs": {
     "url": "https://github.com/sahil290791/api_mashup/issues"
   },
-  "author": {
-    "name": "Sahil Prajapati",
-    "email": "sahilprjpt206@gmail.com",
-    "url": "https://github.com/sahil290791"
-  },
+  "author": "Sahil Prajapati <sahilprjpt206@gmail.com> (https://github.com/sahil290791)",
   "homepage": "http://sahil290791.github.io/api_mashup/",
   "contributors": [
-    {
-      "name": "Sahil Prajapati",
-      "email": "sahilprjpt206@gmail.com",
-      "url": "https://github.com/sahil290791"
-    }
+    "Sahil Prajapati <sahilprjpt206@gmail.com> (https://github.com/sahil290791)"
   ],
   "license": "MIT",
   "devDependencies": {
-    "grunt": "~0.4.5",
-    "grunt-cli": "~0.1.13",
-    "grunt-contrib-concat": "^0.5.1",
-    "grunt-contrib-cssmin": "^1.0.1",
-    "grunt-contrib-jshint": "^0.11.0",
-    "grunt-contrib-less": "^1.3.0",
-    "grunt-contrib-uglify": "^0.8.0",
-    "grunt-contrib-watch": "^0.6.1"
+    "babel-core": "^6.17.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "jshint": "^2.9.3",
+    "jshint-loader": "^0.8.3",
+    "node-libs-browser": "^1.0.0",
+    "strip-loader": "^0.1.2",
+    "webpack": "^1.13.2"
+  },
+  "main": "Gruntfile.js",
+  "scripts": {
+    "build": "webpack -p",
+    "start": "webpack-dev-server"
+  },
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2"
   }
 }
