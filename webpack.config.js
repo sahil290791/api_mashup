@@ -2,10 +2,10 @@ var webpack = require('webpack');
 module.exports = {
 	entry: "./js/app.js",
 	output: {
-		filename: "bundle.js"
+		filename: "./js/bundle.js"
 	},
 	watch: true,
-	 module: {
+	module: {
 	 	preLoaders: [
 	      {
 	        test: /\.js$/,
