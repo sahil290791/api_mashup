@@ -1,9 +1,3 @@
-//<!--
-//Google location API: "https://maps.googleapis.com/maps/api/geocode/json?address=chennai&key=AIzaSyBoPJb_zmSTasju-ve2CGU3nQzZwCgYNik"
-
-
-// -->
-
 var Header = React.createClass({
 	handleChange: function(location, query){
 		this.props.onUserInput(
