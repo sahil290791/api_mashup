@@ -106,6 +106,28 @@ ul {
   height: 100%;
   width: 100%;
 }
+
+/* Footer */
+.footer {
+  background-color: rgba(0, 0, 0, 0.84);
+  bottom: 0;
+  color: rgb(255, 255, 255);
+  left: 0;
+  padding: 10px 0;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  width: 100%;
+}
+
+.footer > a{
+  color: rgb(51, 122, 183);
+  display: inline-block;
+  text-decoration: none;
+  width: 30px;
+}
+/* Media Queries */
+
 @media screen and (max-width: 1000px) {
   .item {
     width: 100%;
@@ -143,5 +165,8 @@ ul {
   }
   .header {
     text-align: auto;
+  }
+  .footer{
+    display: none;
   }
 }

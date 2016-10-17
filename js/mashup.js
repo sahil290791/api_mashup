@@ -1,3 +1,8 @@
+//<!--
+//Google location API: "https://maps.googleapis.com/maps/api/geocode/json?address=chennai&key=AIzaSyBoPJb_zmSTasju-ve2CGU3nQzZwCgYNik"
+
+
+// -->
 var Header = React.createClass({
 	handleChange: function(location, query){
 		this.props.onUserInput(
@@ -8,7 +13,7 @@ var Header = React.createClass({
 		return (
 			<ul className="container">
 				<li className="item brand">
-					<a href="#">API Mashup</a>
+					<a href="/api_mashup/">Find what you are looking for!</a>
 				</li>
 				<li className="item">
 					<ul>
@@ -21,7 +26,7 @@ var Header = React.createClass({
 							<SearchBar onUserInputs={this.handleChange} location={this.props.location} query={this.props.query} />
 						</li>
 					</ul>
-				</li>	
+				</li>
 			</ul>
 		);
 	}
@@ -113,7 +118,7 @@ var ListItem = React.createClass({
 	handleClick: function(e){
 		this.setState({
 			lat: e.target.getAttribute("data-lat"),
-			lng: e.target.getAttribute("data-lng")	
+			lng: e.target.getAttribute("data-lng")
 		});
 		var latLng = {lat: parseFloat(e.target.getAttribute("data-lat")), lng: parseFloat(e.target.getAttribute("data-lng"))};
 		function initMap(){
@@ -175,9 +180,9 @@ var Container = React.createClass({
 			success: function(data){
 				coordinate=data;
 				this.setState({
-					lat: coordinate["results"][0]["geometry"]["location"]["lat"], 
+					lat: coordinate["results"][0]["geometry"]["location"]["lat"],
 					lng: coordinate["results"][0]["geometry"]["location"]["lng"],
-				});		
+				});
 			}.bind(this),
 			error:  function(data){
 
@@ -216,6 +221,12 @@ var Container = React.createClass({
 			<div>
 				<Header onUserInput={this.handleUserInput} location = {this.state.location} query={this.state.query} />
 				<Body location={this.state.location} lat={this.state.lat} lng = {this.state.lng} mapData={this.state.mapData} />
+				<div className="footer">
+				    Created by: Sahil Prajapati | 
+				    <a href="https://github.com/sahil290791/api_mashup"><i className="fa fa-fw fa-github"></i></a>
+				    <a href="https://in.linkedin.com/in/sahil290791"><i className="fa fa-fw fa-linkedin"></i></a>
+				    <a href="https://twitter.com/@sahilprjpt206"><i className="fa fa-fw fa-twitter"></i></a>
+				</div>
 			</div>
 		);
 	}
